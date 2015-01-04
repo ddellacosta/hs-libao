@@ -103,8 +103,7 @@ foreign import ccall unsafe "ao_play"
   ao_play :: AODevicePtr -> Ptr CChar -> CUInt -> CInt
 
 aoPlay :: AODevicePtr -> AOSampleFormat -> CInt -> [CChar] -> IO CInt
-aoPlay devicePtr fmt bufSize buffer = do
-    withArray buffer (\b -> return $ ao_play devicePtr b $ unsafeCoerce bufSize)
+aoPlay devicePtr fmt bufSize buffer = withArray buffer (\b -> return $ ao_play devicePtr b $ unsafeCoerce bufSize)
 
 -- Call ao_close() to close the device. Note that this will automatically free the memory that was allocated for the device. Do not attempt to free the device pointer yourself!
 -- int                  ao_close(ao_device *device);
